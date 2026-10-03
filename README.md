@@ -1,32 +1,36 @@
 # Lizzy — ETHUSD Sell Ladder
 
-Disaster-recovery backup for the Delta Exchange India ETHUSD sell-ladder bot.
+Production Delta Exchange India ETHUSD sell-ladder trading bot.
 
-## Production location
+## Production
 
-`/home/ec2-user/delta-bot/sell-ladder/`
+- Strategy: `lizzy.py`
+- Runtime state: `lizzy_state.json`
+- PM2 process: `lizzy`
+- Order prefix: `LIZ-`
+- Production directory: `/home/ec2-user/delta-bot/lizzy/`
 
-## Bot
+## Strategy configuration
 
-- File: `sell_ladder_bot.py`
-- PM2 application: `sell-ladder`
-- Symbol: ETHUSD
-- Product ID: 3136
+All strategy parameters are loaded from AWS Secrets Manager.
 
-## Configuration
+AWS secret:
 
-The bot reads its API credentials and trading configuration from AWS
-Secrets Manager at runtime.
+`Lizzie`
 
-**Credentials and secret values are intentionally NOT stored in this repository.**
+The current configuration separates:
 
-## Recovery
+- `Step` — initial ladder spacing
+- `Counter_Step` — counter-order distance
+- `Order_Size` — order size in lots
+- `Max_Position` — maximum position in lots
 
-1. Restore `sell_ladder_bot.py` to the production directory.
-2. Restore the state file only after reconciling the live exchange orders and position.
-3. Ensure the required Python environment and Delta REST client are installed.
-4. Ensure the AWS secret is available to the EC2 instance.
-5. Verify exchange state before starting PM2.
-6. Start `sell-ladder` only after reconciliation.
+No API credentials or AWS secret values are stored in this repository.
 
-Never blindly reset local state while live exchange orders or positions exist.
+## Important
+
+`lizzy.py` is the only production strategy file.
+
+`lizzy_state.json` is runtime state and must not be manually edited during normal operation.
+
+Before changing strategy code or state, reconcile the live Delta Exchange position and LIZ orders.

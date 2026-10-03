@@ -1,0 +1,393 @@
+{
+  "version": 1,
+  "bot_position": 1,
+  "next_sequence": 49,
+  "initialized": true,
+  "orders": {
+    "1581522586": {
+      "role": "S",
+      "side": "sell",
+      "price": 2682.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-1-ce41e6",
+      "handled": true,
+      "fill_price": 2681.5
+    },
+    "1581522607": {
+      "role": "S",
+      "side": "sell",
+      "price": 2683.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-2-70586a",
+      "handled": false
+    },
+    "1581522632": {
+      "role": "S",
+      "side": "sell",
+      "price": 2684.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-3-dbe8ec",
+      "handled": false
+    },
+    "1581522666": {
+      "role": "S",
+      "side": "sell",
+      "price": 2685.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-4-dbfce7",
+      "handled": false
+    },
+    "1581522687": {
+      "role": "S",
+      "side": "sell",
+      "price": 2686.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-5-7fcc62",
+      "handled": false
+    },
+    "1581522714": {
+      "role": "S",
+      "side": "sell",
+      "price": 2687.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-6-e73374",
+      "handled": false
+    },
+    "1581522745": {
+      "role": "S",
+      "side": "sell",
+      "price": 2688.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-7-9a3334",
+      "handled": false
+    },
+    "1581522778": {
+      "role": "S",
+      "side": "sell",
+      "price": 2689.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-8-653663",
+      "handled": false
+    },
+    "1581522811": {
+      "role": "S",
+      "side": "sell",
+      "price": 2690.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-9-11a93c",
+      "handled": false
+    },
+    "1581522829": {
+      "role": "S",
+      "side": "sell",
+      "price": 2691.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-10-fbfba9",
+      "handled": false
+    },
+    "1581522853": {
+      "role": "S",
+      "side": "sell",
+      "price": 2692.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-11-1cf014",
+      "handled": false
+    },
+    "1581522881": {
+      "role": "S",
+      "side": "sell",
+      "price": 2693.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-12-386d5c",
+      "handled": false
+    },
+    "1581522908": {
+      "role": "S",
+      "side": "sell",
+      "price": 2694.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-13-b79542",
+      "handled": false
+    },
+    "1581522945": {
+      "role": "S",
+      "side": "sell",
+      "price": 2695.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-14-ce1c33",
+      "handled": false
+    },
+    "1581522967": {
+      "role": "S",
+      "side": "sell",
+      "price": 2696.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-15-9a5e63",
+      "handled": false
+    },
+    "1581523005": {
+      "role": "S",
+      "side": "sell",
+      "price": 2697.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-16-b4392a",
+      "handled": false
+    },
+    "1581523025": {
+      "role": "S",
+      "side": "sell",
+      "price": 2698.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-17-c412ad",
+      "handled": false
+    },
+    "1581523043": {
+      "role": "S",
+      "side": "sell",
+      "price": 2699.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-18-d04848",
+      "handled": false
+    },
+    "1581523075": {
+      "role": "S",
+      "side": "sell",
+      "price": 2700.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-19-96f6cb",
+      "handled": false
+    },
+    "1581523099": {
+      "role": "S",
+      "side": "sell",
+      "price": 2701.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-20-eae5d1",
+      "handled": false
+    },
+    "1581523121": {
+      "role": "S",
+      "side": "sell",
+      "price": 2702.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-21-a811f3",
+      "handled": false
+    },
+    "1581523147": {
+      "role": "S",
+      "side": "sell",
+      "price": 2703.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-22-a90438",
+      "handled": false
+    },
+    "1581523165": {
+      "role": "S",
+      "side": "sell",
+      "price": 2704.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-23-d0655b",
+      "handled": false
+    },
+    "1581523185": {
+      "role": "S",
+      "side": "sell",
+      "price": 2705.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-24-a282c5",
+      "handled": false
+    },
+    "1581523206": {
+      "role": "S",
+      "side": "sell",
+      "price": 2706.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-25-0907ac",
+      "handled": false
+    },
+    "1581523221": {
+      "role": "S",
+      "side": "sell",
+      "price": 2707.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-26-e95186",
+      "handled": false
+    },
+    "1581523256": {
+      "role": "S",
+      "side": "sell",
+      "price": 2708.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-27-5afb2b",
+      "handled": false
+    },
+    "1581523276": {
+      "role": "S",
+      "side": "sell",
+      "price": 2709.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-28-6c8ce1",
+      "handled": false
+    },
+    "1581523305": {
+      "role": "S",
+      "side": "sell",
+      "price": 2710.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-29-cf6914",
+      "handled": false
+    },
+    "1581523327": {
+      "role": "S",
+      "side": "sell",
+      "price": 2711.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-30-f3afbb",
+      "handled": false
+    },
+    "1581523352": {
+      "role": "S",
+      "side": "sell",
+      "price": 2712.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-31-a1348b",
+      "handled": false
+    },
+    "1581523368": {
+      "role": "S",
+      "side": "sell",
+      "price": 2713.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-32-d04dfe",
+      "handled": false
+    },
+    "1581523387": {
+      "role": "S",
+      "side": "sell",
+      "price": 2714.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-33-51b173",
+      "handled": false
+    },
+    "1581523412": {
+      "role": "S",
+      "side": "sell",
+      "price": 2715.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-34-55ce97",
+      "handled": false
+    },
+    "1581523439": {
+      "role": "S",
+      "side": "sell",
+      "price": 2716.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-35-79cc0f",
+      "handled": false
+    },
+    "1581523469": {
+      "role": "S",
+      "side": "sell",
+      "price": 2717.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-36-127faf",
+      "handled": false
+    },
+    "1581523496": {
+      "role": "S",
+      "side": "sell",
+      "price": 2718.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-37-dcf508",
+      "handled": false
+    },
+    "1581523522": {
+      "role": "S",
+      "side": "sell",
+      "price": 2719.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-38-9737f1",
+      "handled": false
+    },
+    "1581523546": {
+      "role": "S",
+      "side": "sell",
+      "price": 2720.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-39-f1051d",
+      "handled": false
+    },
+    "1581523561": {
+      "role": "S",
+      "side": "sell",
+      "price": 2721.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-40-b40d21",
+      "handled": false
+    },
+    "1581523583": {
+      "role": "S",
+      "side": "sell",
+      "price": 2722.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-41-b519c3",
+      "handled": false
+    },
+    "1581523612": {
+      "role": "S",
+      "side": "sell",
+      "price": 2723.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-42-ac0053",
+      "handled": false
+    },
+    "1581523630": {
+      "role": "S",
+      "side": "sell",
+      "price": 2724.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-43-d43e41",
+      "handled": false
+    },
+    "1581523653": {
+      "role": "S",
+      "side": "sell",
+      "price": 2725.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-44-6889e5",
+      "handled": false
+    },
+    "1581523673": {
+      "role": "S",
+      "side": "sell",
+      "price": 2726.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-45-8e2d72",
+      "handled": false
+    },
+    "1581523689": {
+      "role": "S",
+      "side": "sell",
+      "price": 2727.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-46-9d4e0c",
+      "handled": false
+    },
+    "1581523719": {
+      "role": "S",
+      "side": "sell",
+      "price": 2728.0,
+      "size": 1,
+      "client_order_id": "LIZ-S-47-65241a",
+      "handled": false
+    },
+    "1581524738": {
+      "role": "B",
+      "side": "buy",
+      "price": 2678.5,
+      "size": 1,
+      "client_order_id": "LIZ-B-48-f3fe33",
+      "handled": false
+    }
+  }
+}

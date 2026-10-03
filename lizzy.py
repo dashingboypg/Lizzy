@@ -10,15 +10,15 @@ from delta_rest_client import DeltaRestClient
 # SELL LADDER BOT - SEPARATE FROM GRID3
 # ============================================================
 
-SECRET_NAME = "Deepti"
+SECRET_NAME = "Lizzie"
 AWS_REGION = "ap-south-1"
 
 BASE_URL = "https://api.india.delta.exchange"
 SYMBOL = "ETHUSD"
 PRODUCT_ID = 3136
 
-STATE_FILE = "/home/ec2-user/delta-bot/sell-ladder/sell_ladder_state.json"
-BOT_PREFIX = "SLR-"
+STATE_FILE = "/home/ec2-user/delta-bot/lizzy/lizzy_state.json"
+BOT_PREFIX = "LIZ-"
 
 POLL_SECONDS = 2
 
@@ -38,46 +38,60 @@ def load_secret():
     response = sm.get_secret_value(SecretId=SECRET_NAME)
     data = json.loads(response["SecretString"])
 
-    api_key = data.get("API_Key")
-    api_secret = data.get("API_Secret_Key")
+    required = [
+        "API_Key",
+        "API_Secret_Key",
+        "Order_Size",
+        "Max_Position",
+        "Step",
+        "Counter_Step",
+    ]
+
+    missing = [key for key in required if key not in data]
+    if missing:
+        raise RuntimeError(
+            f"AWS secret {SECRET_NAME} is missing required fields: {missing}"
+        )
+
+    api_key = str(data["API_Key"]).strip()
+    api_secret = str(data["API_Secret_Key"]).strip()
 
     if not api_key or not api_secret:
         raise RuntimeError(
-            "API_Key or API_Secret_Key missing from AWS secret Deepti"
+            f"AWS secret {SECRET_NAME} contains empty API credentials"
         )
 
-    max_position = int(
-        float(str(data.get("Max_Position", "15"))
-              .replace("lots", "").strip())
-    )
+    def parse_number(value, field):
+        text = str(value).strip().lower()
+        text = text.replace("$", "")
+        text = text.replace("lots", "")
+        text = text.replace("lot", "")
+        text = text.strip()
 
-    order_size = int(
-        float(str(data.get("Order_Size", "1"))
-              .replace("lots", "").strip())
-    )
+        try:
+            return float(text)
+        except ValueError:
+            raise RuntimeError(
+                f"Invalid {field} in AWS secret {SECRET_NAME}: {value!r}"
+            )
 
-    step = float(
-        str(data.get("Step", "3"))
-        .replace("$", "")
-        .replace(",", "")
-        .strip()
-    )
+    max_position = parse_number(data["Max_Position"], "Max_Position")
+    order_size = parse_number(data["Order_Size"], "Order_Size")
+    step = parse_number(data["Step"], "Step")
+    counter_step = parse_number(data['Counter_Step'], 'Counter_Step')
 
-    if max_position <= 0:
-        raise RuntimeError("Max_Position must be greater than zero")
+    if max_position <= 0 or order_size <= 0 or step <= 0 or counter_step <= 0:
+        raise RuntimeError(
+            f"AWS secret {SECRET_NAME} contains non-positive strategy values"
+        )
 
-    if order_size <= 0:
-        raise RuntimeError("Order_Size must be greater than zero")
+    if max_position % 1 != 0 or order_size % 1 != 0:
+        raise RuntimeError(
+            "Max_Position and Order_Size must be whole lots"
+        )
 
-    if step <= 0:
-        raise RuntimeError("Step must be greater than zero")
+    return api_key, api_secret, int(max_position), int(order_size), step, counter_step
 
-    return api_key, api_secret, max_position, order_size, step
-
-
-# ============================================================
-# STATE
-# ============================================================
 
 def default_state():
     return {
@@ -87,6 +101,7 @@ def default_state():
         "initialized": False,
         "orders": {}
     }
+
 
 
 def load_state():
@@ -148,7 +163,7 @@ def price_string(price):
 # DELTA CLIENT
 # ============================================================
 
-API_KEY, API_SECRET, MAX_POSITION, ORDER_SIZE, STEP = load_secret()
+API_KEY, API_SECRET, MAX_POSITION, ORDER_SIZE, STEP, COUNTER_STEP = load_secret()
 
 client = DeltaRestClient(
     base_url=BASE_URL,
@@ -237,6 +252,63 @@ def get_bot_open_orders():
 # ============================================================
 # PLACE LIMIT ORDER
 # ============================================================
+
+def reconcile_startup():
+    log("Checking Delta position and LIZ- orders against local state...")
+
+    position = client.get_position(PRODUCT_ID)
+    exchange_position = abs(int(position.get("size", 0)))
+
+    live_bot_orders = get_bot_open_orders()
+
+    exchange_order_ids = {
+        str(o.get("id")) for o in live_bot_orders
+    }
+
+    local_orders = STATE.get("orders", {})
+
+    local_order_ids = {
+        str(order_id)
+        for order_id, order in local_orders.items()
+        if not order.get("handled", False)
+    }
+
+    if exchange_position == 0 and not exchange_order_ids:
+        if (
+            STATE.get("bot_position", 0) != 0
+            or local_order_ids
+            or STATE.get("initialized", False)
+        ):
+            log("Exchange is clean but local state is stale.")
+            log("Resetting local Lizzy state.")
+
+            STATE.clear()
+            STATE.update(default_state())
+            save_state()
+
+        log("STARTUP RECONCILIATION OK: exchange is clean.")
+        return
+
+    if exchange_position != int(STATE.get("bot_position", 0)):
+        raise RuntimeError(
+            "STARTUP RECONCILIATION FAILED: "
+            f"Delta position={exchange_position}, "
+            f"local bot_position={STATE.get('bot_position', 0)}"
+        )
+
+    if exchange_order_ids != local_order_ids:
+        raise RuntimeError(
+            "STARTUP RECONCILIATION FAILED: "
+            f"Delta LIZ orders={sorted(exchange_order_ids)}, "
+            f"local LIZ orders={sorted(local_order_ids)}"
+        )
+
+    log(
+        "STARTUP RECONCILIATION OK: "
+        f"position={exchange_position}, "
+        f"LIZ orders={len(exchange_order_ids)}"
+    )
+
 
 def place_limit(side, price, role):
     client_oid = new_client_order_id(role)
@@ -383,7 +455,7 @@ def handle_sell_fill(order_id, info, order):
     )
 
     # Corresponding buy exactly STEP below.
-    buy_price = sell_price - STEP
+    buy_price = sell_price - COUNTER_STEP
 
     place_limit(
         side="buy",
@@ -429,7 +501,7 @@ def handle_buy_fill(order_id, info, order):
     )
 
     # Corresponding sell exactly STEP above.
-    sell_price = buy_price + STEP
+    sell_price = buy_price + COUNTER_STEP
 
     place_limit(
         side="sell",
@@ -538,7 +610,7 @@ def main():
     log("==========================================")
 
     log(
-        "Credentials loaded from AWS secret: Deepti"
+        "Credentials loaded from AWS secret: Lizzie"
     )
 
     log(f"Symbol: {SYMBOL}")
@@ -555,6 +627,8 @@ def main():
     cmp = get_cmp()
 
     log(f"Delta API OK. CMP: {cmp}")
+
+    reconcile_startup()
 
     initialize_grid()
 
